@@ -41,19 +41,28 @@ describe('Traveloka Cars Product', () => {
       to do that.
     */
 
-    // Input user details
-    carsProductFunction.inputUserDetails();
+    // CAPTCHA Detected
+    cy.get('h2')
+      .contains("Let's solve the puzzle!")
+      .then(($el) => {
+        if ($el.length > 0) {
+          cy.log('CAPTCHA DETECTED');
+        } else {
+          // Input user details
+          carsProductFunction.inputUserDetails();
 
-    // Checking detail booking requirements data
-    carsProductFunction.checkDetailsBooking();
+          // Checking detail booking requirements data
+          carsProductFunction.checkDetailsBooking();
 
-    /*
-      Continue Payment function is commented because
-      if we continue, it generate bookingID and this is production.
-      This comment to prevent unexpected possibility.
-    */
+          /*
+            Continue Payment function is commented because
+            if we continue, it generate bookingID and this is production.
+            This comment to prevent unexpected possibility.
+          */
 
-    // Continue to payment method and pay
-    // carsProductFunction.continuePayment();
+          // Continue to payment method and pay
+          // carsProductFunction.continuePayment();
+        }
+      });
   });
 });
